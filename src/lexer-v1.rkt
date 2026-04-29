@@ -92,3 +92,6 @@
 
    ;; End of File
    [(eof) (token-EOF)]))
+
+;; Export the lexer and the token definitions so the parser can use them
+(provide omerta-lexer value-tokens punct-tokens)
