@@ -2,7 +2,7 @@
 
 (require "lexer.rkt")
 (require "parser.rkt")
-(require "evaluator.rkt") ;; <--- IMPORT THE EVALUATOR!
+(require "evaluator.rkt") 
 
 (define (run-omerta code-string)
   (displayln "--- COMPILING OMERTA ---")
