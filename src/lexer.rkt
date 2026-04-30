@@ -46,6 +46,14 @@
    ;; -- Assignment --
    ASSIGN  ;; =
 
+   ;; -- Comparison Operators --
+   EQ  ;; ==
+   NEQ  ;; != 
+   GT ;; >
+   LT  ;; <
+   GTE  ;; >= 
+   LTE  ; <= 
+
    ;; -- Punctuation --
    LPAREN RPAREN   ;; ( )
    LBRACE RBRACE   ;; { }
@@ -108,6 +116,12 @@
    ["-" (token-MINUS)]
    ["*" (token-TIMES)]
    ["/" (token-DIVIDE)]
+   ["==" (token-EQ)]
+   ["!=" (token-NEQ)]
+   [">=" (token-GTE)]
+   ["<=" (token-LTE)]
+   [">"  (token-GT)]
+   ["<"  (token-LT)]
    ["=" (token-ASSIGN)]
    ["(" (token-LPAREN)]
    [")" (token-RPAREN)]

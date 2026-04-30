@@ -54,9 +54,9 @@ the-sitdown {
 } ")
 
 ; Expecting O/P:
-Wiretap located. Initiating sweep.
-Relocating the crew. Cost:
-15000
+; Wiretap located. Initiating sweep.
+; Relocating the crew. Cost:
+; 15000
 
 (run-omerta" the-sitdown {
   cut wiretap_found = 1 !

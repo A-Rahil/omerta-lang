@@ -40,8 +40,21 @@
     
     ;; <if_stmt> -> say ( <expr> ) { <stmts> }
     (if_stmt
-     ((SAY LPAREN expr RPAREN LBRACE stmts RBRACE) (list 'IfStmt $3 $6)))
-    
+     ((SAY LPAREN expr RPAREN LBRACE stmts RBRACE)
+      (list 'IfStmt $3 $6 '() '()))
+
+     ((SAY LPAREN expr RPAREN LBRACE stmts RBRACE
+       FORGETABOUTIT LBRACE stmts RBRACE)
+      (list 'IfStmt $3 $6 '() $10))
+
+     ((SAY LPAREN expr RPAREN LBRACE stmts RBRACE
+       YKNOWHAT LPAREN expr RPAREN LBRACE stmts RBRACE)
+      (list 'IfStmt $3 $6 (list (list 'ElseIf $10 $13)) '()))
+
+     ((SAY LPAREN expr RPAREN LBRACE stmts RBRACE
+       YKNOWHAT LPAREN expr RPAREN LBRACE stmts RBRACE
+       FORGETABOUTIT LBRACE stmts RBRACE)
+      (list 'IfStmt $3 $6 (list (list 'ElseIf $10 $13)) $17)))
     ;; <var_def> -> <type> <id> = <expr>
     (var_def
      ((type ID ASSIGN expr) (list 'VarDef $1 $2 $4)))
@@ -55,6 +68,12 @@
     
     ;; <expr> -> <expr> + <term> | <term>
     (expr
+    ((expr EQ  term) (list 'BinOp '== $1 $3))
+     ((expr NEQ term) (list 'BinOp '!= $1 $3))
+     ((expr GT  term) (list 'BinOp '>  $1 $3))
+     ((expr LT  term) (list 'BinOp '<  $1 $3))
+     ((expr GTE term) (list 'BinOp '>= $1 $3))
+     ((expr LTE term) (list 'BinOp '<= $1 $3))
      ((expr PLUS term)  (list 'BinOp '+ $1 $3))
      ((expr MINUS term) (list 'BinOp '- $1 $3))
      ((term)            $1))
@@ -70,6 +89,8 @@
      ((NUMBER)             (list 'NumLiteral $1))
      ((ID)                 (list 'VarAccess $1))
      ((STRING)             (list 'StringLiteral $1))
+     ((LEGIT)   (list 'BoolLiteral #t))
+     ((FUGAZZI) (list 'BoolLiteral #f))
      ((LPAREN expr RPAREN) $2))
     
     )))
